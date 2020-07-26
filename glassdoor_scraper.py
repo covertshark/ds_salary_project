@@ -2,9 +2,8 @@
 """
 Created on Sun Jul 19 16:54:03 2020
 
-@author: Mohit.S
-"""
-"""
+author: Kenarapfaik
+
 url: https://github.com/arapfaik/scraping-glassdoor-selenium
 """
 from selenium.common.exceptions import NoSuchElementException, ElementClickInterceptedException
@@ -63,7 +62,7 @@ def get_jobs(keyword, num_jobs, verbose, path, slp_time):
             if len(jobs) >= num_jobs:
                 break
 
-            job_button.click()  #You might 
+            driver.execute_script("arguments[0].click();", job_button)  #You might 
             time.sleep(1)
             collected_successfully = False
             
@@ -73,19 +72,21 @@ def get_jobs(keyword, num_jobs, verbose, path, slp_time):
                     location = driver.find_element_by_xpath('.//div[@class="location"]').text
                     job_title = driver.find_element_by_xpath('.//div[contains(@class, "title")]').text
                     job_description = driver.find_element_by_xpath('.//div[@class="jobDescriptionContent desc"]').text
+                    salary_estimate = driver.find_element_by_xpath('.//span[@class="gray salary"]').text
                     collected_successfully = True
                 except:
                     time.sleep(5)
 
-            try:
-                salary_estimate = driver.find_element_by_xpath('.//span[@class="gray salary"]').text
-            except NoSuchElementException:
-                salary_estimate = -1 #You need to set a "not found value. It's important."
+                #try:
+                   # salary_estimate = driver.find_element_by_xpath('.//span[@class="gray salary"]').text
+                 #   print(salary_estimate)
+                #except NoSuchElementException:
+                   # salary_estimate = -1 #You need to set a "not found value. It's important."
             
-            try:
-                rating = driver.find_element_by_xpath('.//span[@class="rating"]').text
-            except NoSuchElementException:
-                rating = -1 #You need to set a "not found value. It's important."
+                try:
+                    rating = driver.find_element_by_xpath('.//span[@class="rating"]').text
+                except NoSuchElementException:
+                    rating = -1 #You need to set a "not found value. It's important."
 
             #Printing for debugging
             if verbose:
