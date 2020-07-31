@@ -71,4 +71,4 @@ df_out = df.drop('Unnamed: 0', axis =1)
 
 df_out.to_csv('Salary_data_cleaned.csv', index = False)
 
-pd.read_csv('Salary_data_cleaned.csv')
+#pd.read_csv('Salary_data_cleaned.csv')
